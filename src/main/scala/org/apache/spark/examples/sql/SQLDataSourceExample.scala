@@ -28,7 +28,8 @@ object SQLDataSourceExample {
     val spark = SparkSession
       .builder()
       .appName("Spark SQL data sources example")
-      .config("spark.some.config.option", "some-value")
+      //.config("spark.some.config.option", "some-value")
+      .config("spark.master", "local")
       .getOrCreate()
 
     runBasicDataSourceExample(spark)

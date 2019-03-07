@@ -39,7 +39,8 @@ object SparkSQLExample {
     val spark = SparkSession
       .builder()
       .appName("Spark SQL basic example")
-      .config("spark.some.config.option", "some-value")
+      //.config("spark.some.config.option", "some-value")
+      .config("spark.master", "local")
       .getOrCreate()
 
     // For implicit conversions like converting RDDs to DataFrames
@@ -56,8 +57,8 @@ object SparkSQLExample {
 
   private def runBasicDataFrameExample(spark: SparkSession): Unit = {
     // $example on:create_df$
-    val df = spark.read.json("examples/src/main/resources/people.json")
-
+    val df = spark.read.json("/home/rakesh/spark-example/src/main/resources/people.json")
+    ///home/rakesh/spark-example/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala
     // Displays the content of the DataFrame to stdout
     df.show()
     // +----+-------+

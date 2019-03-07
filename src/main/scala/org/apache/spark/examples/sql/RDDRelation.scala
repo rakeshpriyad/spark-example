@@ -33,7 +33,8 @@ object RDDRelation {
     val spark = SparkSession
       .builder
       .appName("Spark Examples")
-      .config("spark.some.config.option", "some-value")
+      //.config("spark.some.config.option", "some-value")
+      .config("spark.master", "local")
       .getOrCreate()
 
     // Importing the SparkSession gives access to all the SQL functions and implicit conversions.
@@ -50,18 +51,20 @@ object RDDRelation {
     spark.sql("SELECT * FROM records").collect().foreach(println)
 
     // Aggregation queries are also supported.
-    val count = spark.sql("SELECT COUNT(*) FROM records").collect().head.getLong(0)
+    val count = spark.sql("SELECT * FROM records").collect().head.getInt(0)
     println(s"COUNT(*): $count")
 
     // The results of SQL queries are themselves RDDs and support all normal RDD functions. The
     // items in the RDD are of type Row, which allows you to access each column by ordinal.
     val rddFromSql = spark.sql("SELECT key, value FROM records WHERE key < 10")
 
-    println("Result of RDD.map:")
-    rddFromSql.rdd.map(row => s"Key: ${row(0)}, Value: ${row(1)}").collect().foreach(println)
+    /*println("Result of RDD.map:")
+    //rddFromSql.map(row => row(0) +" "+ row(1)).collect().foreach(println)
+    rddFromSql.collect().foreach(e=> println(e(0)+""+ e(1)))
+    //rddFromSql.rdd.map(row => s"Key: ${row(0)}, Value: ${row(1)}").collect().foreach(println)
 
     // Queries can also be written using a LINQ-like Scala DSL.
-    df.where($"key" === 1).orderBy($"value".asc).select($"key").collect().foreach(println)
+   // df.where($"key" === 1).orderBy($"value".asc).select($"key").collect().foreach(println)
 
     // Write out an RDD as a parquet file with overwrite mode.
     df.write.mode(SaveMode.Overwrite).parquet("pair.parquet")
@@ -75,7 +78,7 @@ object RDDRelation {
     // These files can also be used to create a temporary view.
     parquetFile.createOrReplaceTempView("parquetFile")
     spark.sql("SELECT * FROM parquetFile").collect().foreach(println)
-
+*/
     spark.stop()
   }
 }
