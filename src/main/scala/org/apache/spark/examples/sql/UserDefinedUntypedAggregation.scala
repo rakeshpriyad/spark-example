@@ -72,7 +72,7 @@ object UserDefinedUntypedAggregation {
     // Register the function to access it
     spark.udf.register("myAverage", MyAverage)
 
-    val df = spark.read.json("examples/src/main/resources/employees.json")
+    val df = spark.read.json("src/main/resources/employees.json")
     df.createOrReplaceTempView("employees")
     df.show()
     // +-------+------+
