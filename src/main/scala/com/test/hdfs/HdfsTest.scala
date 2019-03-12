@@ -16,7 +16,7 @@
  */
 
 // scalastyle:off println
-package org.apache.spark.examples
+package com.test.hdfs
 
 import java.util.concurrent.TimeUnit
 
